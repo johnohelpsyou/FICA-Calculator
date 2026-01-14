@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payroll Tax Savings Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.125rem;
+    color: #4B5C6B;
+    background-color: #FFFFFF;
+    margin: 20px;
+    padding: 0;
+  }
+
+  .calculator {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: #FFFFFF;
+  }
+
+  h3 {
+    font-weight: 600; /* semibold */
+    font-size: 1.125rem;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.125rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+  }
+
+  .results p {
+    margin: 6px 0;
+  }
+
+  .results p span {
+    font-weight: 700; /* bold results numbers */
+  }
+
+  .disclaimer {
+    font-size: 0.875rem;
+    color: #777;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 480px) {
+    .calculator {
+      padding: 20px;
+    }
+    input[type="number"] {
+      padding: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <h3>Estimate Your Payroll Tax Savings</h3>
+
+  <label for="employees">Number of full-time employees (FT = 30+ hours/week, min 10):</label>
+  <input type="number" id="employees" min="10" placeholder="Enter number of employees" oninput="calculateSavings()">
+
+  <div class="results">
+    <p>Estimated Annual Savings: $<span id="annual">0</span></p>
+    <p>Estimated Monthly Savings: $<span id="monthly">0</span></p>
+    <p class="disclaimer">This calculator provides an estimate.</p>
+  </div>
+</div>
+
+<script>
+function calculateSavings() {
+  const employees = Number(document.getElementById('employees').value);
+  const annualEl = document.getElementById('annual');
+  const monthlyEl = document.getElementById('monthly');
+
+  if (!employees || employees < 10) {
+    annualEl.textContent = '0';
+    monthlyEl.textContent = '0';
+    return;
+  }
+
+  const annual = employees * 1120;
+  const monthly = annual / 12;
+
+  annualEl.textContent = annual.toLocaleString();
+  monthlyEl.textContent = monthly.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+</script>
+
+</body>
+</html>
